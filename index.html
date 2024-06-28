@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Matcher</title>
+    <style>
+        /* Reset and general styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('static/aesthetic.jpg');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        header, footer {
+            background: linear-gradient(to right, rgba(227, 241, 255, 0.8), rgba(162, 203, 255, 0.8));
+            padding: 20px 0;
+            text-align: center;
+            color: #333;
+            animation: gradient-bg 15s ease infinite;
+            background-size: 400% 400%;
+            overflow: hidden;
+        }
+
+        @keyframes gradient-bg {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 50px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            animation: header-fade-in 2s ease-out;
+        }
+
+        @keyframes header-fade-in {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        form {
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #4682b4;
+        }
+
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.7);
+            transition: background-color 0.3s ease;
+        }
+
+        textarea:focus, input[type="text"]:focus {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        .skill-set {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            animation: fade-in 1s ease-out;
+        }
+
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .skill-set input {
+            width: 48%;
+            transition: background-color 0.3s ease;
+        }
+
+        .skill-set input:focus {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .skill-set button {
+            background: #4682b4;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .skill-set button:hover {
+            background: #4169e1;
+        }
+
+        .add-skill-btn, input[type="submit"] {
+            background: #4682b4;
+            color: #fff;
+            padding: 10px 20px;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-skill-btn:hover, input[type="submit"]:hover {
+            background: #4169e1;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            background: rgba(255, 255, 255, 0.8);
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .remove-btn {
+            background: #dc143c;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            background: #b22222;
+        }
+
+        /* Footer styles */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to left, rgba(227, 241, 255, 0.8), rgba(162, 203, 255, 0.8));
+            text-align: center;
+            padding: 25px 0;
+            color: #080808;
+            font-size: 14px;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        .sparkling-pulse {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            width: 10px;
+            height: 10px;
+            background-color: #fff;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: pulse 2s infinite;
+            transition: opacity 0.3s ease;
+        }
+
+        .sparkling-pulse:hover {
+            opacity: 1;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.5);
+                box-shadow: 0 0 0 rgba(255, 255, 255, 0.7);
+            }
+            50% {
+                transform: scale(1);
+                box-shadow: 0 0 10px 10px rgba(255, 255, 255, 0);
+            }
+            100% {
+                transform: scale(1.5);
+                box-shadow: 0 0 0 rgba(255, 255, 255, 0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Resume Matcher</h1>
+    </header>
+    <div class="container">
+        <form method="POST" action="/match_resumes">
+            <label for="job_description">Job Description:</label>
+            <textarea id="job_description" name="job_description" rows="4" cols="50"></textarea><br>
+
+            <div id="skills">
+                <label>Skills and Experience:</label>
+                <div class="skill-set">
+                    <input type="text" name="skills[]" placeholder="Skill">
+                    <input type="text" name="experiences[]" placeholder="Years of Experience (e.g., 5-10, >10)">
+                    <button type="button" class="remove-btn" onclick="removeSkill(this)">Remove</button>
+                </div>
+            </div>
+            <button type="button" class="add-skill-btn" onclick="addSkill()">Add Skill</button><br>
+
+            <input type="submit" id="submit-btn" value="Find Matching Resumes">
+        </form>
+
+        {% if resumes %}
+            <h2>Top Matching Resumes</h2>
+            <ul>
+                {% for resume in resumes %}
+                    <li><a href="resume/{{ resume }}" target="_blank">{{ resume }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Your Company. All rights reserved.</p>
+        <div class="sparkling-pulse"></div>
+    </footer>
+
+    <script>
+        let skillCount = 1;
+
+        function addSkill() {
+            const skillSet = document.createElement('div');
+            skillSet.className = 'skill-set';
+            skillSet.innerHTML = `
+                <input type="text" name="skills[]" placeholder="Skill">
+                <input type="text" name="experiences[]" placeholder="Years of Experience (e.g., 5-10, >10)">
+                <button type="button" class="remove-btn" onclick="removeSkill(this)">Remove</button>
+            `;
+            document.getElementById('skills').appendChild(skillSet);
+        }
+
+        function removeSkill(button) {
+            const skillSet = button.parentNode;
+            skillSet.parentNode.removeChild(skillSet);
+        }
+    </script>
+</body>
+</html>
